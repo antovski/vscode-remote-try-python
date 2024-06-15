@@ -24,7 +24,7 @@ jobs:
         BRANCH: gh-pages
         FOLDER: build
     
-    # Generate BOM file and upload to DT
+    # Generate BOM file and upload to Dependency-Track
     - name: Install BOM generating tool (cyclonedx-bom)
       run: 'python -m pip install cyclonedx-bom'
     - name: Generate BOM file
