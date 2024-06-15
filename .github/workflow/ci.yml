@@ -23,3 +23,12 @@ jobs:
         ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         BRANCH: gh-pages
         FOLDER: build
+    
+    # Generate BOM file and upload to DT
+    - name: Install BOM generating tool (cyclonedx-bom)
+      run: 'python -m pip install cyclonedx-bom'
+    - name: Generate BOM file
+      run: cyclonedx-py environment -o bom.json
+    - name: Upload BOM file to Dependency-Track
+      run: |
+        curl -X "POST" http://antovski.ddns.net:8091/api/v1/bom -H 'Content-Type:multipart/form-data' -H 'X-Api-Key:odt_jwqMzLAEplZlA0WHat9lps0UC40p99qb' -F 'project=ff03814a-d833-47a3-bd73-7536e4b56d7e' -F 'bom=@./bom.json'
